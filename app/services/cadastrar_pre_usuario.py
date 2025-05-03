@@ -3,6 +3,8 @@ from app.services.bd import conectar
 from app.services.email_solicitacao import enviar_email_solicitacao
 
 def cadastrar_pre_usuario(nome, email_usuario):
+    print(">>> Função cadastrar_pre_usuario() chamada")
+
     conn = None
     cursor = None
     try:

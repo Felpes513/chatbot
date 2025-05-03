@@ -1,5 +1,9 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 import mysql.connector
-from config.db_config import db_config  # Importando as configurações de banco de dados
+from config.db_config import db_config
+print("Configuração de banco carregada:", db_config)
 
 def conectar():
     try:
@@ -9,4 +13,4 @@ def conectar():
             return conn
     except mysql.connector.Error as e:
         print(f"Erro ao conectar ao banco de dados: {e}")
-    return None  # Garantir que retorna None se não conectar
+    return None

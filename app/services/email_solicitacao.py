@@ -6,8 +6,8 @@ from email.mime.multipart import MIMEMultipart
 smtp_server = 'smtp.gmail.com'
 smtp_port = 587
 smtp_user = 'felipemoreira2003@gmail.com'
-smtp_password = 'gnmq rotb stmw tvvx'    # <-- Gerada em https://myaccount.google.com/apppasswords
-email_suporte = 'felipe.moreira@uscsonline.com.br'
+smtp_password = 'gnmq rotb stmw tvvx'
+email_suporte = 'felipssouza1974@gmail.com'
 
 def enviar_email_solicitacao(nome, email_usuario, permissao=None, crm=None, estado_crm=None, caminho_assinatura=None):
     mensagem = MIMEMultipart()

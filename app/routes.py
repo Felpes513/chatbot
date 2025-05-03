@@ -54,13 +54,15 @@ def solicitar_novo_usuario():
         else:
             caminho_assinatura = None
 
-        # Aqui você pode adicionar lógica para salvar no banco, enviar e-mail, etc.
+        
+        cadastrar_pre_usuario(nome, email)
+
         print(f'Permissão: {permissao}')
         print(f'Nome: {nome}, Email: {email}')
         print(f'CRM: {crm}, Estado CRM: {estado_crm}')
         print(f'Caminho Assinatura: {caminho_assinatura}')
 
         flash('Solicitação enviada com sucesso!', 'success')
-        return redirect(url_for('main.solicitar_novo_usuario'))  # Alteração aqui
+        return redirect(url_for('main.solicitar_novo_usuario'))
 
     return render_template('email_solicitacao.html')
