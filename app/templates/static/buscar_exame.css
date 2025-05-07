@@ -1,48 +1,59 @@
-/* Reset básico para margens e espaçamentos */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+main {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    line-height: 1.6;
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-header {
+input[type="text"],
+input[type="submit"] {
+    padding: 10px;
+    font-size: 16px;
+}
+
+input[type="submit"] {
     background-color: #005f73;
     color: white;
-    padding: 20px;
-    text-align: center;
+    border: none;
+    cursor: pointer;
 }
 
-nav {
+input[type="submit"]:hover {
+    background-color: #0a9396;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 20px;
-    text-align: center;
 }
 
-nav ul {
-    list-style: none;
+table th,
+table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
 }
 
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-nav ul li a {
+.whatsapp-link {
+    display: inline-block;
+    margin-top: 15px;
+    background-color: #25D366;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
     text-decoration: none;
-    color: #005f73;
     font-weight: bold;
 }
 
-footer {
-    margin-top: 40px;
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
+.whatsapp-link:hover {
+    background-color: #1ebe5d;
 }

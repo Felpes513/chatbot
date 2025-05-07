@@ -1,26 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar Exame</title>
-    <link rel="stylesheet" href="static/buscar_exame.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='buscar_exame.css') }}">
 </head>
 <body>
-    <h2>Buscar Exame</h2>
-    <form method="post">
-        Nome do paciente: <input type="text" name="nome_paciente">
+
+    <h1>Buscar Exame</h1>
+
+    <form method="POST">
+        <label for="nome_paciente">Nome do Paciente:</label>
+        <input type="text" name="nome_paciente" id="nome_paciente" required>
         <input type="submit" value="Buscar">
     </form>
 
     {% if resultados %}
-        <h3>Exames encontrados:</h3>
+        <h2>Resultados:</h2>
         <ul>
             {% for exame in resultados %}
-                <li>ID: {{ exame[0] }}, Nome: {{ exame[1] }}, Data: {{ exame[2] }}, Unidade: {{ exame[3] }}, Accession: {{ exame[4] }}, Status: {{ exame[5] }}</li>
+                <li>
+                    {{ exame['nome_paciente'] }} - {{ exame['data_exame'] }} - {{ exame['unidade'] }}
+                </li>
             {% endfor %}
         </ul>
     {% elif nome_paciente %}
-        <p>Nenhum exame encontrado para "{{ nome_paciente }}"</p>
+        <p><strong>Nenhum exame encontrado com esse nome.</strong></p>
+        <p>Você pode entrar em contato com o suporte via WhatsApp:</p>
+        <p><a href="https://wa.me/+5511934409921" target="_blank">Clique aqui para falar com o suporte</a></p>
     {% endif %}
+
+    <footer>
+        <p>© 2025 - MobileChat</p>
+    </footer>
+
 </body>
 </html>
