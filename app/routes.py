@@ -24,9 +24,24 @@ def index():
 def buscar_exame_route():
     if request.method == 'POST':
         nome_paciente = request.form.get('nome_paciente')
-        resultados = buscar_exame_por_nome(nome_paciente)
-        return render_template('buscar_exame.html', resultados=resultados, nome_paciente=nome_paciente)
+        data_exame = request.form.get('data_exame')
+        cpf = request.form.get('cpf')
+
+        from app.services.buscar_exame import buscar_exame_por_nome
+        resultados, erro = buscar_exame_por_nome(nome_paciente, data_exame, cpf)
+
+        if resultados:
+            return render_template('buscar_exame.html', resultados=resultados, nome_paciente=nome_paciente)
+        else:
+            # Se já tentou com dados extras e mesmo assim falhou, mostrar link do suporte
+            solicitar_mais_dados = bool(data_exame or cpf)
+            return render_template('buscar_exame.html',
+                                   nome_paciente=nome_paciente,
+                                   erro=erro,
+                                   solicitar_mais_dados=not solicitar_mais_dados)
+    
     return render_template('buscar_exame.html')
+
 
 @main.route('/videos_tutoriais', methods=['GET', 'POST'])
 def videos():
