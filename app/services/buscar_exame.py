@@ -4,36 +4,9 @@ from app.services.bd import conectar
 
 def buscar_exame_por_nome(nome, data_exame=None, cpf=None):
     conn = conectar()
-<<<<<<< HEAD
     if not conn:
-        return []
+        return [], "Erro na conexão com o banco de dados."
 
-    try:
-        cursor = conn.cursor(dictionary=True)
-
-        
-        cursor.execute("""
-            SELECT * FROM exames WHERE nome_paciente = %s
-        """, (nome_paciente,))
-        resultados = cursor.fetchall()
-
-        
-        if not resultados:
-            cursor.execute("""
-                SELECT * FROM exames WHERE nome_paciente LIKE %s
-            """, (f"%{nome_paciente}%",))
-            resultados = cursor.fetchall()
-
-        return resultados
-
-    except Exception as e:
-        print(f"Erro ao buscar exame: {e}")
-        return []
-
-    finally:
-        cursor.close()
-        conn.close()
-=======
     cursor = conn.cursor(dictionary=True)
 
     try:
@@ -50,6 +23,7 @@ def buscar_exame_por_nome(nome, data_exame=None, cpf=None):
             query = """
                 SELECT * FROM exames
                 WHERE nome_paciente LIKE %s AND data_exame = %s
+                
             """
             cursor.execute(query, (f"%{nome}%", data_exame))
             resultados = cursor.fetchall()
@@ -70,7 +44,10 @@ def buscar_exame_por_nome(nome, data_exame=None, cpf=None):
         # Nenhuma correspondência
         return [], "Nenhum exame encontrado com os dados fornecidos."
 
+    except Exception as e:
+        print(f"Erro ao buscar exame: {e}")
+        return [], "Erro interno ao buscar exame."
+
     finally:
         cursor.close()
         conn.close()
->>>>>>> e8c98a6 (Correção de falhas)

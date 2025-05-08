@@ -1,22 +1,10 @@
-<!-- templates/buscar_exame.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar Exame</title>
-<<<<<<< HEAD
     <link rel="stylesheet" href="{{ url_for('static', filename='buscar_exame.css') }}">
-</head>
-<body>
-
-    <h1>Buscar Exame</h1>
-
-    <form method="POST">
-        <label for="nome_paciente">Nome do Paciente:</label>
-        <input type="text" name="nome_paciente" id="nome_paciente" required>
-        <input type="submit" value="Buscar">
-=======
 </head>
 <body>
     <h1>Buscar Exame</h1>
@@ -31,9 +19,8 @@
 
         {% if solicitar_mais_dados %}
             <br><br>
-            <label for="data_nascimento">Data do exame:</label>
-            <input type="date" name="data_nascimento" id="data_nascimento">
-
+            <label for="data_exame">Data do exame:</label>
+            <input type="date" name="data_exame" id="data_exame">
             <br><br>
             <label for="cpf">CPF:</label>
             <input type="text" name="cpf" id="cpf" placeholder="Apenas números">
@@ -41,35 +28,22 @@
 
         <br><br>
         <button type="submit">Buscar</button>
->>>>>>> e8c98a6 (Correção de falhas)
     </form>
 
     {% if resultados %}
         <h2>Resultados:</h2>
         <ul>
             {% for exame in resultados %}
-<<<<<<< HEAD
-                <li>
-                    {{ exame['nome_paciente'] }} - {{ exame['data_exame'] }} - {{ exame['unidade'] }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% elif nome_paciente %}
-        <p><strong>Nenhum exame encontrado com esse nome.</strong></p>
-        <p>Você pode entrar em contato com o suporte via WhatsApp:</p>
-        <p><a href="https://wa.me/+5511934409921" target="_blank">Clique aqui para falar com o suporte</a></p>
-=======
                 <li>{{ exame.nome_paciente }} - {{ exame.data_exame }} - {{ exame.unidade }}</li>
             {% endfor %}
         </ul>
-    {% elif erro == 'Nenhum exame encontrado com os dados fornecidos.' %}
-        <p>Não encontramos o exame. <a href="https://wa.me/5511934409921?text=Olá, preciso de ajuda para localizar um exame." target="_blank">Clique aqui para falar com o suporte no WhatsApp</a>.</p>
->>>>>>> e8c98a6 (Correção de falhas)
+    {% elif erro == 'Nenhum exame encontrado com os dados fornecidos.' or nome_paciente %}
+        <p><strong>Não encontramos o exame.</strong></p>
+        <p><a href="https://wa.me/5511934409921?text=Olá, preciso de ajuda para localizar um exame." target="_blank">Clique aqui para falar com o suporte no WhatsApp</a></p>
     {% endif %}
 
     <footer>
         <p>© 2025 - MobileChat</p>
     </footer>
-
 </body>
 </html>
