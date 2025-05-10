@@ -18,28 +18,27 @@ def buscar_exame_por_nome(nome, data_exame=None, cpf=None):
         if resultados:
             return resultados, None  # Encontrou só com o nome
 
-        # 2. Segunda tentativa: nome + data_exame
+        # 2. Segunda tentativa: buscar apenas por data_exame (se fornecida)
         if data_exame:
             query = """
                 SELECT * FROM exames
-                WHERE nome_paciente LIKE %s AND data_exame = %s
-                
+                WHERE data_exame = %s
             """
-            cursor.execute(query, (f"%{nome}%", data_exame))
+            cursor.execute(query, (data_exame,))
             resultados = cursor.fetchall()
             if resultados:
-                return resultados, None
+                return resultados, None  # Encontrou pela data
 
-        # 3. Terceira tentativa: nome + CPF
+        # 3. Terceira tentativa: buscar apenas por CPF (se fornecido)
         if cpf:
             query = """
                 SELECT * FROM exames
-                WHERE nome_paciente LIKE %s AND cpf = %s
+                WHERE cpf = %s
             """
-            cursor.execute(query, (f"%{nome}%", cpf))
+            cursor.execute(query, (cpf,))
             resultados = cursor.fetchall()
             if resultados:
-                return resultados, None
+                return resultados, None  # Encontrou pelo CPF
 
         # Nenhuma correspondência
         return [], "Nenhum exame encontrado com os dados fornecidos."

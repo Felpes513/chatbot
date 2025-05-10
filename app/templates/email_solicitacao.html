@@ -1,69 +1,57 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solicitar Novo Usuário</title>
-    <link rel="stylesheet" href="static/email_solicitacao.css">
+    <title>Solicitação de Cadastro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <div class="container">
+        <h1>Solicitação de Cadastro</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" name="nome" required>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul class="flash-messages">
-        {% for category, message in messages %}
-          <li class="{{ category }}">{{ message }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
 
-    <h1>Solicitar Novo Usuário</h1>
+            <label for="permissao">Permissão:</label>
+            <select id="permissao" name="permissao" required>
+                <option value="">Selecione</option>
+                <option value="Técnico">Técnico</option>
+                <option value="Médico">Médico</option>
+                <option value="Financeiro">Financeiro</option>
+                <option value="Gestor">Gestor</option>
+                <option value="Digitador">Digitador</option>
+                <option value="Somente Leitura">Somente Leitura</option>
+            </select>
 
-    <form method="POST" enctype="multipart/form-data">
-        <label for="permissao">Selecione a permissão do usuário:</label>
-        <select name="permissao" id="permissao" required>
-            <option value="">Escolha...</option>
-            <option value="Gestor">Gestor</option>
-            <option value="Financeiro">Financeiro</option>
-            <option value="Médico">Médico</option>
-            <option value="Técnico">Técnico</option>
-            <option value="Somente Leitura">Somente Leitura</option>
-            <option value="Digitador">Digitador</option>
-        </select>
+            <div id="campos-medico" style="display: none;">
+                <label for="crm">CRM:</label>
+                <input type="text" id="crm" name="crm">
 
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" id="nome" required>
+                <label for="estado_crm">Estado do CRM:</label>
+                <input type="text" id="estado_crm" name="estado_crm">
 
-        <label for="email">E-mail:</label>
-        <input type="email" name="email" id="email" required>
+                <label for="assinatura">Assinatura (imagem):</label>
+                <input type="file" id="assinatura" name="assinatura" accept="image/*">
+            </div>
 
-        <div id="medico-fields" style="display: none;">
-            <label for="crm">CRM:</label>
-            <input type="text" name="crm" id="crm">
-
-            <label for="estado_crm">Estado do CRM:</label>
-            <input type="text" name="estado_crm" id="estado_crm">
-
-            <label for="assinatura">Foto da Assinatura:</label>
-            <input type="file" name="assinatura" id="assinatura">
-        </div>
-
-        <input type="submit" value="Enviar Solicitação">
-    </form>
+            <button type="submit">Enviar Solicitação</button>
+        </form>
+    </div>
 
     <script>
         const permissaoSelect = document.getElementById('permissao');
-        const medicoFields = document.getElementById('medico-fields');
+        const camposMedico = document.getElementById('campos-medico');
 
-        permissaoSelect.addEventListener('change', function() {
-            if (permissaoSelect.value === 'Médico') {
-                medicoFields.style.display = 'block';
+        permissaoSelect.addEventListener('change', function () {
+            if (this.value === 'Médico') {
+                camposMedico.style.display = 'block';
             } else {
-                medicoFields.style.display = 'none';
+                camposMedico.style.display = 'none';
             }
         });
     </script>
-
 </body>
 </html>

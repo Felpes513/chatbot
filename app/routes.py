@@ -45,3 +45,50 @@ def buscar_exame_route():
                                    solicitar_mais_dados=not solicitar_mais_dados)
     
     return render_template('buscar_exame.html')
+# Vídeos tutoriais por e-mail
+@main.route('/videos_tutoriais', methods=['GET', 'POST'])
+def videos_tutoriais_route():
+    if request.method == 'POST':
+        email = request.form.get('email')
+
+        videos, erro = buscar_videos_por_email(email)
+
+        if erro:
+            flash(erro, 'error')
+            return render_template('videos_tutoriais.html', email=email)
+
+        return render_template('videos_tutoriais.html', videos=videos, email=email)
+
+    return render_template('videos_tutoriais.html')
+
+@main.route('/email_solicitacao', methods=['GET', 'POST'])
+def email_solicitacao_route():
+    if request.method == 'POST':
+        nome = request.form.get('nome')
+        email = request.form.get('email')
+        permissao = request.form.get('permissao')
+        crm = request.form.get('crm')
+        estado_crm = request.form.get('estado_crm')
+        assinatura = request.files.get('assinatura')
+
+        caminho_assinatura = None
+        if assinatura and assinatura.filename:
+            caminho_assinatura = os.path.join('uploads', assinatura.filename)
+            assinatura.save(caminho_assinatura)
+
+        sucesso, mensagem = cadastrar_pre_usuario(
+        nome=nome,
+        email=email,
+        permissao=permissao,
+        crm=crm,
+        estado_crm=estado_crm,
+        caminho_assinatura=caminho_assinatura
+)
+
+        if sucesso:
+            flash("Solicitação enviada com sucesso!", "success")
+            return redirect(url_for('main.email_solicitacao_route'))
+        else:
+            flash(mensagem, "error")
+
+    return render_template('email_solicitacao.html')

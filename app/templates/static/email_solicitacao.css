@@ -1,25 +1,26 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    padding: 20px;
-    max-width: 600px;
-    margin: auto;
+    background-color: #f5f7fa;
+    padding: 40px;
     color: #333;
 }
 
-h1 {
-    color: #007BFF;
-    text-align: center;
+.form-container {
+    background-color: #fff;
+    padding: 30px;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 label {
+    font-weight: bold;
     display: block;
     margin-top: 15px;
 }
@@ -30,35 +31,86 @@ input[type="file"],
 select {
     width: 100%;
     padding: 10px;
-    margin-top: 5px;
+    border-radius: 6px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    margin-top: 5px;
+    box-sizing: border-box;
 }
 
-input[type="submit"] {
-    margin-top: 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 12px;
+button {
     width: 100%;
-    border-radius: 4px;
+    background-color: #0066cc;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    margin-top: 20px;
     cursor: pointer;
+    font-size: 16px;
 }
 
-input[type="submit"]:hover {
-    background-color: #218838;
+button:hover {
+    background-color: #004d99;
 }
 
-.flash-messages {
-    list-style-type: none;
+.alert {
     padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.alert.success {
+    background-color: #d4edda;
+    color: #155724;
+}body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+.container {
+    background-color: white;
+    max-width: 500px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
     margin-bottom: 20px;
 }
 
-.flash-messages .success {
-    background-color: #d4edda;
-    color: #155724;
-    border-left: 5px solid #28a745;
+label {
+    display: block;
+    margin-top: 15px;
+}
+
+input, select, button {
+    width: 100%;
     padding: 10px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+.alert.error {
+    background-color: #f8d7da;
+    color: #721c24;
 }

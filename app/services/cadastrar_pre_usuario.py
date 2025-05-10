@@ -2,7 +2,7 @@ from datetime import datetime
 from app.services.bd import conectar
 from app.services.email_solicitacao import enviar_email_solicitacao
 
-def cadastrar_pre_usuario(nome, email_usuario):
+def cadastrar_pre_usuario(nome, email, permissao, crm=None, estado_crm=None, caminho_assinatura=None):
     print(">>> Função cadastrar_pre_usuario() chamada")
 
     conn = None
@@ -11,27 +11,31 @@ def cadastrar_pre_usuario(nome, email_usuario):
         conn = conectar()
         if not conn:
             print("Não foi possível conectar ao banco de dados.")
-            return
+            return False, "Erro de conexão com o banco de dados."
 
         cursor = conn.cursor()
 
         data_solicitacao = datetime.now()
         status = 'pendente'
 
+        # Inserção apenas dos campos que realmente existem na tabela
         sql = """
-            INSERT INTO pre_cadastro (nome, email, status, data_solicitacao)
-            VALUES (%s, %s, %s, %s)
+            INSERT INTO pre_cadastro (nome, email, permissao, data_solicitacao, status, crm, estado_crm)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
         """
-        valores = (nome, email_usuario, status, data_solicitacao)
+        valores = (nome, email, permissao, data_solicitacao, status, crm, estado_crm)
         cursor.execute(sql, valores)
         conn.commit()
 
-        enviar_email_solicitacao(nome, email_usuario)
+        # Enviar e-mail com possível anexo da assinatura
+        enviar_email_solicitacao(nome, email, permissao, crm, estado_crm, caminho_assinatura)
 
         print(f"Cadastro solicitado com sucesso para {nome}. Aguardando aprovação do suporte.")
+        return True, "Cadastro solicitado com sucesso. Aguarde a aprovação."
 
     except Exception as e:
         print(f"Erro ao cadastrar pré-usuário: {e}")
+        return False, f"Erro ao cadastrar: {e}"
 
     finally:
         if cursor:
